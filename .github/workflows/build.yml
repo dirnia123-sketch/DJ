@@ -24,19 +24,12 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Find project folder
-        id: proj
-        run: |
-          f=$(find . -name settings.gradle.kts -not -path "*/build/*" | head -1)
-          echo "Found: $f"
-          echo "dir=$(dirname "$f")" >> $GITHUB_OUTPUT
-
       - name: Build APK
-        working-directory: ${{ steps.proj.outputs.dir }}
+        working-directory: DawEngine
         run: gradle assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: DawEngine-debug-apk
-          path: ${{ steps.proj.outputs.dir }}/app/build/outputs/apk/debug/*.apk
+          path: DawEngine/app/build/outputs/apk/debug/*.apk
