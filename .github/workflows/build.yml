@@ -31,9 +31,9 @@ jobs:
           echo "Found: $f"
           echo "dir=$(dirname "$f")" >> $GITHUB_OUTPUT
 
-      - name: Build
+      - name: Build APK
         working-directory: ${{ steps.proj.outputs.dir }}
-        run: ./gradlew assembleDebug --no-daemon
+        run: gradle assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
